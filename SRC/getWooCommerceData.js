@@ -70,11 +70,10 @@ function getWooCommerceData(dataType, apiKey, apiSecret, id) {
 
     var url = baseUrl + endpoint;
 
-    if (dynamicEndpoints.includes(dataType)) {
-        if (!id) {
-            throw new Error('ID is required for dynamic endpoints.');
-        }
+    if (dynamicEndpoints.includes(dataType) && id) {
         url = url.replace('{id}', id);
+    } else if (dynamicEndpoints.includes(dataType) && !id) {
+        throw new Error('ID is required for dynamic endpoints.');
     }
 
     var options = {
@@ -85,21 +84,10 @@ function getWooCommerceData(dataType, apiKey, apiSecret, id) {
         muteHttpExceptions: true // To handle HTTP errors gracefully
     };
 
-    var response = UrlFetchApp.fetch(url, options);
-    var responseCode = response.getResponseCode();
-    var content = response.getContentText();
-
-    if (responseCode >= 200 && responseCode < 300) {
-        return JSON.parse(content);
-    } else {
-        throw new Error('API request failed with response code ' + responseCode + ': ' + content);
-    }
-}
-
-  const response = UrlFetchApp.fetch(baseUrl + endpoint, options);
+    const response = UrlFetchApp.fetch(url, options);
     if (response.getResponseCode() === 200) {
         return JSON.parse(response.getContentText());
     } else {
-        throw new Error(`API Error: ${response.getResponseCode()} ${response.getContentText()}`);
+        throw new Error(`API request failed with response code ${response.getResponseCode()}: ${response.getContentText()}`);
     }
 }
