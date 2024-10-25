@@ -95,3 +95,11 @@ function getWooCommerceData(dataType, apiKey, apiSecret, id) {
         throw new Error('API request failed with response code ' + responseCode + ': ' + content);
     }
 }
+
+  const response = UrlFetchApp.fetch(baseUrl + endpoint, options);
+    if (response.getResponseCode() === 200) {
+        return JSON.parse(response.getContentText());
+    } else {
+        throw new Error(`API Error: ${response.getResponseCode()} ${response.getContentText()}`);
+    }
+}
