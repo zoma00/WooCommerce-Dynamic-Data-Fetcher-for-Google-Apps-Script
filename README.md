@@ -48,15 +48,17 @@ Throws: Errors for unsupported data types, missing IDs, or failed API requests.
 Architecture and Approach
 The getWooCommerceData function is designed with scalability and flexibility, allowing users to specify different WooCommerce API parameters. Here’s a breakdown of the architectural approach:
 
-Endpoint Mapping:
+1.** Endpoint Mapping **:
 
-The endpointMap dictionary maps dataType inputs to corresponding WooCommerce API endpoints.
-This design allows easy expansion as WooCommerce’s API evolves; new endpoints can be added without altering the function structure.
-Dynamic Data Handling:
+- The `endpointMap` dictionary maps `dataType` inputs to corresponding WooCommerce API endpoints.
+   - This design allows easy expansion as WooCommerce’s API evolves; new endpoints can be added without altering the function structure.
 
-The data type and optional parameters (e.g., id) allow the function to construct API URLs dynamically.
-This avoids hardcoding endpoints, making the function adaptable and reusable for various data requests.
-Error Handling:
+2. **Dynamic Data Handling**:
+3. 
+   - The `dataType` and optional parameters (e.g., `id`) allow the function to construct API URLs dynamically.
+   - This avoids hardcoding endpoints, making the function adaptable and reusable for various data requests.
+
+4. Error Handling:
 
 Provides detailed error messages for unsupported data types or failed API responses.
 Simplifies troubleshooting by specifying HTTP response codes and message details.
